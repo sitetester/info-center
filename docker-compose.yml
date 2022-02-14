@@ -1,0 +1,21 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+
+version: '3'
+
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+    depends_on:
+      - redis
+    links:
+      - redis
+
+  # https://docs.docker.com/compose/gettingstarted/#step-3-define-services-in-a-compose-file
+  redis:
+    image: "redis:alpine"
