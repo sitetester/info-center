@@ -21,7 +21,7 @@ RUN go build -o info-center-redis .
 
 RUN chmod +x ./info-center-redis
 
-EXPOSE 8081
+EXPOSE ${GIN_PORT}
 
 # Run the executable
 CMD [ "./info-center-redis" ]
