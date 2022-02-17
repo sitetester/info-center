@@ -27,7 +27,7 @@ type Payload struct {
 }
 
 type ErrorResponse struct {
-	Error string
+	Error string `json:"error"`
 }
 
 type ApiController struct {

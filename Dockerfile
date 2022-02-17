@@ -17,11 +17,11 @@ RUN go mod download
 COPY . ./
 
 # Build the Go app
-RUN go build -o info-center-redis .
+RUN go build -o info-center .
 
-RUN chmod +x ./info-center-redis
+RUN chmod +x ./info-center
 
 EXPOSE ${GIN_PORT}
 
 # Run the executable
-CMD [ "./info-center-redis" ]
+CMD [ "./info-center" ]
