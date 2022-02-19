@@ -3,7 +3,7 @@ package route
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
-	"github.com/sitetester/infocenter_redis/controller"
+	"github.com/sitetester/info-center/controller"
 )
 
 const serviceName = "info-center"

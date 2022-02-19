@@ -1,4 +1,4 @@
-module github.com/sitetester/infocenter_redis
+module github.com/sitetester/info-center
 
 go 1.17
 

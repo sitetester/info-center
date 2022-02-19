@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/joho/godotenv"
-	"github.com/sitetester/infocenter_redis/route"
+	"github.com/sitetester/info-center/route"
 	"log"
 	"os"
 )
