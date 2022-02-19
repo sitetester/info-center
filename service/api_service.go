@@ -57,8 +57,6 @@ func (s *ApiService) GetMessages(rw gin.ResponseWriter, flusher http.Flusher, to
 	s.setHeaders(rw)
 
 	connectedAt := time.Now()
-	format := "event: timeout\ndata: %ds\n"
-
 	chanMessage := s.redisClient.Subscribe(topic).Channel()
 
 	for {
@@ -75,19 +73,11 @@ func (s *ApiService) GetMessages(rw gin.ResponseWriter, flusher http.Flusher, to
 			flusher.Flush()
 
 			if s.isTimedOut(connectedAt) {
-				if _, err := fmt.Fprintf(rw, format, maxAllowedConnectionTime); err != nil {
-					return err
-				}
-				flusher.Flush()
-				return nil
+				return s.sendTimeoutEvent(rw, flusher)
 			}
 		default:
 			if s.isTimedOut(connectedAt) {
-				if _, err := fmt.Fprintf(rw, format, maxAllowedConnectionTime); err != nil {
-					return err
-				}
-				flusher.Flush()
-				return nil
+				return s.sendTimeoutEvent(rw, flusher)
 			}
 		}
 	}
@@ -104,4 +94,13 @@ func (s *ApiService) setHeaders(rw gin.ResponseWriter) {
 func (s *ApiService) isTimedOut(connectedAt time.Time) bool {
 	diff := (int)(time.Now().Sub(connectedAt).Seconds())
 	return diff > maxAllowedConnectionTime
+}
+
+func (s ApiService) sendTimeoutEvent(rw gin.ResponseWriter, flusher http.Flusher) error {
+	format := "event: timeout\ndata: %ds\n"
+	if _, err := fmt.Fprintf(rw, format, maxAllowedConnectionTime); err != nil {
+		return err
+	}
+	flusher.Flush()
+	return nil
 }
