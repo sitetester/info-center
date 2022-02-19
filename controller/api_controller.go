@@ -42,11 +42,7 @@ func (c *ApiController) HandleTopicPostRoute(ctx *gin.Context) {
 	topic := ctx.Param("topic")
 	msg := ctx.PostForm("msg")
 
-	rd := RequestData{
-		Topic: topic,
-		Msg:   msg,
-	}
-
+	rd := RequestData{Topic: topic, Msg: msg}
 	if _, err := govalidator.ValidateStruct(rd); err != nil {
 		ctx.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
 		return
