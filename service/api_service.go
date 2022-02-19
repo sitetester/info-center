@@ -54,15 +54,16 @@ func (s *ApiService) SaveMessage(topic string, msg string) error {
 }
 
 func (s *ApiService) GetMessages(rw gin.ResponseWriter, flusher http.Flusher, topic string) error {
-	connectedAt := time.Now()
+	s.setHeaders(rw)
 
+	connectedAt := time.Now()
 	format := "event: timeout\ndata: %ds\n"
+
 	chanMessage := s.redisClient.Subscribe(topic).Channel()
 
 	for {
 		select {
 		case msg := <-chanMessage:
-
 			p := &Payload{}
 			if err := json.Unmarshal([]byte(msg.Payload), &p); err != nil {
 				return err
