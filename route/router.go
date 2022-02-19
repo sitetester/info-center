@@ -1,6 +1,7 @@
 package route
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	"github.com/sitetester/info-center/controller"
@@ -18,7 +19,7 @@ func SetupRouter() *gin.Engine {
 	apiService := service.NewApiService(redis.NewClient(&redis.Options{Addr: "redis:6379"}))
 	apiController := controller.NewApiController(apiService)
 
-	engine.GET("/", func(ctx *gin.Context) { ctx.String(200, "["+serviceName+"] API is functional!") })
+	engine.GET("/", func(ctx *gin.Context) { ctx.String(200, fmt.Sprintf("[%s] API is functional", serviceName)) })
 	engine.POST("/"+serviceName+"/:topic", apiController.HandleTopicPostRoute)
 	engine.GET("/"+serviceName+"/:topic", apiController.HandleTopicGetRoute)
 
