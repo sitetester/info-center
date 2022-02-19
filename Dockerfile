@@ -21,7 +21,7 @@ RUN go build -o info-center .
 
 RUN chmod +x ./info-center
 
-EXPOSE ${GIN_PORT}
+EXPOSE 8081
 
 # Run the executable
 CMD [ "./info-center" ]

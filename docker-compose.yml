@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${GIN_PORT}:${GIN_PORT}"
+      - "8081:8081"
     restart: unless-stopped
     depends_on:
       - redis
