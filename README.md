@@ -2,7 +2,7 @@ It's a backend service with go programming language. This service allows clients
 
 Messages can be sent by performing HTTP POST request to /info-center/{topic} route. Topic for the message is passed in the request URL, in place of {topic} tag.
 
-For example client that wants to send a message "labas" to a topic "topic1", should perform the following request:
+For example client that wants to send a message "msg1" to a topic "topic1", should perform the following request:
 
 ```
 POST /info-center/topic1 HTTP/1.0
@@ -22,7 +22,7 @@ Message retrieval is available by sending HTTP GET request to the same API route
 
 Example of receiving message events:
 ```
-GET /info-center/baras HTTP/1.0
+GET /info-center/topic1 HTTP/1.0
 Host: localhost
 
 HTTP/1.0 200 OK
@@ -32,7 +32,7 @@ Date: Mon, 14 Sep 2015 08:33:46 GMT
 
 id: 7
 event: msg
-data: labas
+data: msg1
 
 event: timeout
 data: 30s
